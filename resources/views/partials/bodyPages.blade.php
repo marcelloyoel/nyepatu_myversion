@@ -87,7 +87,7 @@
                                 </span>
                                 @if (Auth::user()->picture)
                                     <img class="img-profile rounded-circle"
-                                        src="{{ url('storage/images/' . Auth::user()->picture) }}">
+                                        src="{{ asset('storage/images/' . Auth::user()->picture) }}">
                                 @else
                                     <img class="img-profile rounded-circle"
                                         src="{{ asset('images/User-Profile-PNG-Image.png') }}">

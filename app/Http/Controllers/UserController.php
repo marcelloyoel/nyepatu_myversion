@@ -152,8 +152,12 @@ class UserController extends Controller
         if ($uploadedPicture) {
             $rules['picture'] = 'image|mimes:jpeg,png,jpg,gif|max:2048';
             $validatedData = $request->validate($rules);
-            $pictureFileName = $uploadedPicture->getClientOriginalName();
-            $uploadedPicture->storeAs('images', $pictureFileName, 'public');
+            // $pictureFileName = $uploadedPicture->getClientOriginalName();
+            // $uploadedPicture->storeAs('images', $pictureFileName, 'public');
+            // $validatedData['picture'] = $pictureFileName;
+
+            $pictureFileName = $uploadedPicture->hashName(); // Generate a unique filename
+            $uploadedPicture->storeAs('public/images', $pictureFileName); // Store in storage/app/public/images
             $validatedData['picture'] = $pictureFileName;
         } else {
             $validatedData = $request->validate($rules);

@@ -26,18 +26,21 @@ class HomeController extends Controller
             $calculatedDistances = Session::get('calculated_distances');
 
             // Get all laundries
-            $laundriesQuery = LaundrySepatu::query();
+            // $laundriesQuery = LaundrySepatu::query();
+            $laundriesQuery = LaundrySepatu::all();
 
+            // off dulu soalnya servicenya abis
             // Sort the laundries by distance
-            $laundries = $laundriesQuery->get()->sortBy(function ($laundry) use ($calculatedDistances) {
-                return (float) str_replace(',', '', $calculatedDistances[$laundry->user_id] ?? PHP_INT_MAX);
-            });
+            // $laundries = $laundriesQuery->get()->sortBy(function ($laundry) use ($calculatedDistances) {
+            //     return (float) str_replace(',', '', $calculatedDistances[$laundry->user_id] ?? PHP_INT_MAX);
+            // });
 
+            // off dulu soalnya servicenya abis
             // Filter laundries with distances less than or equal to 25 km
-            $sortedLaundries = $laundries->filter(function ($laundry) use ($calculatedDistances) {
-                $distance = (float) str_replace(',', '', $calculatedDistances[$laundry->user_id] ?? PHP_INT_MAX);
-                return $distance <= 25;
-            });
+            // $sortedLaundries = $laundries->filter(function ($laundry) use ($calculatedDistances) {
+            //     $distance = (float) str_replace(',', '', $calculatedDistances[$laundry->user_id] ?? PHP_INT_MAX);
+            //     return $distance <= 25;
+            // });
 
             // Paginate the sorted laundries with 8 items per page
             // $perPage = 8;
@@ -57,7 +60,7 @@ class HomeController extends Controller
             return view('home', [
                 'title' => 'Halaman Home',
                 'calculatedDistances' => $calculatedDistances,
-                'laundries' => $sortedLaundries,
+                'laundries' => $laundriesQuery,
             ]);
         } else if (Auth::user()->group_id == 2) {
             $user = Auth::user();
